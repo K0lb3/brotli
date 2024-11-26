@@ -132,7 +132,7 @@ class VersionedExtension(Extension):
 
 EXT_MODULES = [
     VersionedExtension(
-        name='_brotli',
+        name='brotli._brotli',
         sources=[
             'python/_brotli.c',
             'c/common/constants.c',
@@ -266,8 +266,8 @@ setup(
     platforms=PLATFORMS,
     classifiers=CLASSIFIERS,
     package_dir=PACKAGE_DIR,
-    packages=[''],
-    package_data={'': ['__init__.py', 'brotli.py', 'brotli.pyi', 'py.typed']},
+    packages=["brotli"],
+    package_data={"brotli": ["*.py", "*.pyi", "py.typed"]},
     ext_modules=EXT_MODULES,
     test_suite=TEST_SUITE,
     cmdclass=CMD_CLASS)

@@ -267,7 +267,6 @@ setup(
     classifiers=CLASSIFIERS,
     package_dir=PACKAGE_DIR,
     packages=["brotli"],
-    package_data={"brotli": ["*.py", "*.pyi", "py.typed"]},
     ext_modules=EXT_MODULES,
     test_suite=TEST_SUITE,
     cmdclass=CMD_CLASS)

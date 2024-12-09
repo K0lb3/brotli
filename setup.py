@@ -21,7 +21,7 @@ from distutils import log
 
 
 IS_PYTHON3 = sys.version_info[0] == 3
-CIBUILDWHEEL = os.environ.get('CIBUILDWHEEL', '0') == '1'
+BROTLI_PYTHON3_LIMITED_API = os.environ.get('BROTLI_PYTHON3_LIMITED_API', '0') == '1'
 
 CURR_DIR = os.path.abspath(os.path.dirname(os.path.realpath(__file__)))
 
@@ -118,7 +118,7 @@ class VersionedExtension(Extension):
   def __init__(self, *args, **kwargs):
     define_macros = []
 
-    if IS_PYTHON3 and CIBUILDWHEEL:
+    if IS_PYTHON3 and BROTLI_PYTHON3_LIMITED_API:
       kwargs['py_limited_api'] = True
       define_macros.append(('Py_LIMITED_API', '0x03060000'))
     
@@ -234,7 +234,7 @@ CMD_CLASS = {
     'build_ext': BuildExt,
 }
 
-if IS_PYTHON3 and CIBUILDWHEEL:
+if IS_PYTHON3 and BROTLI_PYTHON3_LIMITED_API:
   from wheel.bdist_wheel import bdist_wheel
   # adopted from:
   # https://github.com/joerick/python-abi3-package-sample/blob/7f05b22b9e0cfb4e60293bc85252e95278a80720/setup.py

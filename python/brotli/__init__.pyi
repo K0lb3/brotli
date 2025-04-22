@@ -7,7 +7,7 @@
 Functions to compress and decompress data using the Brotli library.
 """
 
-from typing import Union
+from typing import Optional, Union
 
 ByteString = Union[bytes, bytearray, memoryview]
 
@@ -114,16 +114,23 @@ class Decompressor:
         """
         ...
 
-    def process(self, string: ByteString) -> bytes:
+    def process(self, string: ByteString, max_output_length: Optional[int] = None) -> bytes:
         """Process "string" for decompression, returning a string that contains
         decompressed output data.  This data should be concatenated to the output
         produced by any preceding calls to the "process()" method.
         Some or all of the input may be kept in internal buffers for later
         processing, and the decompressed output data may be empty until enough input
         has been accumulated.
+        If max_output_length is set, no more than max_output_length bytes will be
+        returned. If the limit is reached, further calls to process (potentially with
+        empty input) will continue to yield more data. If, after returning a string of
+        the length equal to limit, can_accept_more_data() returns False, process()
+        must only be called with empty input until can_accept_more_data() once again
+        returns True.
 
         Args:
           string (bytes): The input data
+          max_output_length (int, optional): The maximum length of the output data.
 
         Returns:
           The decompressed output data (bytes)
